@@ -162,12 +162,45 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      // iterate through every value in board
+      var rowsArray = this.rows();
+      var diagArray = [];
+      var count = 0;
+      for (var i = 0; i < rowsArray.length; i++) {
+        for (var j = 0; j < rowsArray[i].length; j++) {
+          // if output of helper function matches the argument
+          if (this._getFirstRowColumnIndexForMajorDiagonalOn(i, j) === majorDiagonalColumnIndexAtFirstRow) {
+            diagArray.push(rowsArray[i][j]);
+          }
+        }
+      }
+
+      // iterate through DiagArray 
+      for (var a = 0; a < diagArray.length; a++) {
+        // count the number of 1s
+        if (diagArray[a] === 1) {
+          count++;
+        }
+      }
+      return count > 1;
+      // if the count > 1 return true, else return false
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      // num of diag = 2n -3 
+      // start of index of diagonalNames = -(((2n-3)-1)/2)
+      
+      var numOfDiag = (2 * this.get('n')) - 3;
+      var startOfIndex = -1 * ((numOfDiag - 1) / 2);
+      var endOfIndex = -1 * startOfIndex;
+      
+      for (var i = startOfIndex; i < endOfIndex; i++) {
+        if (this.hasMajorDiagonalConflictAt(i) === true) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
