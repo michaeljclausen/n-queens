@@ -24,6 +24,35 @@
       }, this);
     },
 
+    cols: function() {
+      return _(_.range(this.get('n'))).map(function(colIndex) {
+        var rows = this.rows();
+        
+        // for (var i = 0; i < rows.length; i++) {
+        var colArray = [];
+        for (var j = 0; j < rows[colIndex].length; j++) {
+          colArray.push(rows[j][colIndex]);
+        }
+        return colArray;
+        // }
+        
+
+
+
+
+
+        // var outerArray = [];
+        // for (var i = 0; i < rows.length; i++) {
+        //   var innerArray = [];
+        //   for (var j = 0; j < rows[i].length; j++) {
+        //     innerArray.push(rows[j][i]);
+        //   }
+        //   outerArray.push(innerArray);
+        // }
+        // return outerArray;
+      }, this);
+    },    
+
     togglePiece: function(rowIndex, colIndex) {
       this.get(rowIndex)[colIndex] = + !this.get(rowIndex)[colIndex];
       this.trigger('change');
@@ -115,6 +144,7 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      
       return false; // fixme
     },
 
