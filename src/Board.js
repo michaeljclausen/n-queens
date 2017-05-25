@@ -210,7 +210,6 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      debugger;
       var rowsArray = this.rows();
       var diagArray = [];
       var count = 0;
