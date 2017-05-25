@@ -195,7 +195,7 @@
       var startOfIndex = -1 * ((numOfDiag - 1) / 2);
       var endOfIndex = -1 * startOfIndex;
       
-      for (var i = startOfIndex; i < endOfIndex; i++) {
+      for (var i = startOfIndex; i <= endOfIndex; i++) {
         if (this.hasMajorDiagonalConflictAt(i) === true) {
           return true;
         }

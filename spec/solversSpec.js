@@ -3,7 +3,7 @@ describe('solvers', function() {
 
   describe('findNRooksSolution()', function() {
 
-    it('finds a valid solution for n of 1-8', function() {
+    xit('finds a valid solution for n of 1-8', function() {
       _.range(1, 9).map(function(n) {
         var solutionBoard = new Board(findNRooksSolution(n));
         var numPieces = _.reduce(solutionBoard.rows(), function(memo, row) {
@@ -68,7 +68,7 @@ describe('solvers', function() {
 
   describe('countNQueensSolutions()', function() {
 
-    xit('finds the number of valid solutions for n of 0-8', function() {
+    it('finds the number of valid solutions for n of 0-8', function() {
       _.range(0, 9).map(function(n) {
         var solutionCount = countNQueensSolutions(n);
         var expectedSolutionCount = [1, 1, 0, 0, 2, 10, 4, 40, 92][n];

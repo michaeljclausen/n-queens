@@ -78,20 +78,14 @@ window.countNRooksSolutions = function(n) {
   
   generateSolutions(n);
   return solutionArray.length;
-
-
-
-
-
-
-
-  // let solutionCoount = 'fix me';
-  // console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
-  // return solutionCount;
 };
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
+  
+  
+  
+  
   var solution = undefined; //fixme
 
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
@@ -100,8 +94,37 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  
+    
+  var solutionArray = [];
+  
+  var generateSolutions = function(queensToPlace, boardSoFar, columnsAlreadyChosen = []) {
+    debugger;
+    if (boardSoFar === undefined) {
+      var boardSoFar = new Board({n: queensToPlace});
+    }
+    if (queensToPlace === 0) {
+      if (!boardSoFar.hasAnyQueensConflicts()) {
+        solutionArray.push(boardSoFar);
+      }
+      return;
+    }
+ 
+    for (var i = 0; i < n; i++) {
+      if (!columnsAlreadyChosen.includes(i)) {
+        boardSoFar.togglePiece(queensToPlace - 1, i);
+        columnsAlreadyChosen.push(i);
+        generateSolutions(queensToPlace - 1, boardSoFar, columnsAlreadyChosen);
+        columnsAlreadyChosen.pop();
+        boardSoFar.togglePiece(queensToPlace - 1, i);
+      }
+    }   
+  };
+  
+  generateSolutions(n);
+  console.log('Number of solutions for ' + n + ' queens:', solutionArray.length);
+  return solutionArray.length;
 
-  console.log('Number of solutions for ' + n + ' queens:', solutionCount);
-  return solutionCount;
+  
+  // return solutionCount;
 };
