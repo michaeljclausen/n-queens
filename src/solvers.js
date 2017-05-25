@@ -96,7 +96,11 @@ window.findNQueensSolution = function(n) {
         return;
       }
       for (var i = 0; i < n; i++) {
-        if (!columnsAlreadyChosen.includes(i)) {
+        // if "i" isnt in our columnsAlreadyChosen array OR 'i' isnt
+        // +1 or -1 the last element in the columnsAlreadyChosen Array
+        // then do this code...
+        let last = columnsAlreadyChosen[columnsAlreadyChosen.length - 1];
+        if (!columnsAlreadyChosen.includes(i) && i !== last + 1 && i !== last - 1) {
           boardSoFar.togglePiece(queensToPlace - 1, i);
           columnsAlreadyChosen.push(i);
           generateSolutions(queensToPlace - 1, boardSoFar, columnsAlreadyChosen);
@@ -143,7 +147,8 @@ window.countNQueensSolutions = function(n) {
     }
  
     for (var i = 0; i < n; i++) {
-      if (!columnsAlreadyChosen.includes(i)) {
+      let last = columnsAlreadyChosen[columnsAlreadyChosen.length - 1];
+      if (!columnsAlreadyChosen.includes(i) && i !== last + 1 && i !== last - 1) {
         boardSoFar.togglePiece(queensToPlace - 1, i);
         columnsAlreadyChosen.push(i);
         generateSolutions(queensToPlace - 1, boardSoFar, columnsAlreadyChosen);
