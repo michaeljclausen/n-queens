@@ -16,44 +16,45 @@
 
 
 window.findNRooksSolution = function(n) {
-  
+  var solution;
 
-  var solution = undefined; //fixme
+  var generateSolutions = function(rooksToPlace, boardSoFar, columnsAlreadyChosen = []) {
+    if (!solution) {
+      if (boardSoFar === undefined) {
+        var boardSoFar = new Board({n: rooksToPlace});
+      }
+      if (rooksToPlace === 0) {
+        if (!boardSoFar.hasAnyRooksConflicts()) {
+          solution = boardSoFar.rows();
+        }
+        return;
+      }
+      for (var i = 0; i < n; i++) {
+        if (!columnsAlreadyChosen.includes(i)) {
+          boardSoFar.togglePiece(rooksToPlace - 1, i);
+          columnsAlreadyChosen.push(i);
+          generateSolutions(rooksToPlace - 1, boardSoFar, columnsAlreadyChosen);
+          if (!solution) {
+            columnsAlreadyChosen.pop();
+            boardSoFar.togglePiece(rooksToPlace - 1, i);
+          }
+        }
+      }   
+    }
+  };
+
+  generateSolutions(n);
+  
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
 };
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  
-  // for a combination of board size 1->n
-  
-  // var board = new Board({n: n});
-  // var count = 0;
-  // var piecesToPlace = n;
-  //   // place a piece on the board 
-  // for (var i = 0; i < n; i++) {
-  //   for (var j = 0; j < n; j++) {
-  //     // keep placing pieces on the board until n pieces have been placed
-  //     // check if theres no conflict
-  //     // if there is no conflict, push to solutionArray   
-  //     if (piecesToPlace > 0 && this.get(i)[j] !== 1) {
-  //       this.togglePiece(i, j);
-  //     }
-  //     if (piecesToPlace === 0) {
-  //       if (this.hasAnyRooksConflicts === true) {
-  //         count++;
-  //       }
-  //       piecesToPlace--;
-  //     } 
-  //   }
-  // }
-  
     
   var solutionArray = [];
   
   var generateSolutions = function(rooksToPlace, boardSoFar, columnsAlreadyChosen = []) {
-    debugger;
     if (boardSoFar === undefined) {
       var boardSoFar = new Board({n: rooksToPlace});
     }
